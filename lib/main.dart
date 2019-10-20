@@ -23,7 +23,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.orange,
         fontFamily: 'Montserrat',
       ),
-      home: RestaurantPage(),
+      home: Home(),
+      routes: {
+        'restaurant': (ctx) => RestaurantPage(),
+      },
     );
   }
 }
@@ -135,6 +138,7 @@ class Home extends StatelessWidget {
                     children: <Widget>[
                       Container(
                         padding: EdgeInsets.all(5.0),
+                        margin: EdgeInsets.symmetric(horizontal: 9.0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5.0),
                           gradient: LinearGradient(
@@ -148,30 +152,20 @@ class Home extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Text(
-                        "# Gourmet food in summer",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 21,
+                      Expanded(
+                        child: Text(
+                          "# Gourmet food in summer",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 21,
+                          ),
                         ),
                       )
                     ],
                   ),
                 ),
                 SizedBox(height: 15.0),
-                Container(
-                  height: 55,
-                  child: ListView.builder(
-                    itemCount: buttonsTitle.length,
-                    itemBuilder: (BuildContext context, int id) {
-                      return MyCustomButton(
-                        title: buttonsTitle[id],
-                        active: id == 0 ? true : false,
-                      );
-                    },
-                    scrollDirection: Axis.horizontal,
-                  ),
-                ),
+                CategoriesList(),
                 SizedBox(height: 15.0),
                 Container(
                   height: 181,
@@ -196,65 +190,68 @@ class Home extends StatelessWidget {
 class LargeContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width / 1.5,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15.0),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 5.0,
-            offset: Offset(0, 3),
-            color: Colors.grey[300],
-          ),
-        ],
-      ),
-      padding: EdgeInsets.all(15.0),
-      margin: EdgeInsets.symmetric(horizontal: 9.0, vertical: 7.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          ClipRRect(
-            child: Image.asset("assets/imgs/lobster.jpg"),
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          SizedBox(
-            height: 9.0,
-          ),
-          Text(
-            "Australian Lobster stewed rice",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 19.0,
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, 'restaurant'),
+      child: Container(
+        width: MediaQuery.of(context).size.width / 1.5,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15.0),
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 5.0,
+              offset: Offset(0, 3),
+              color: Colors.grey[300],
             ),
-          ),
-          SizedBox(
-            height: 9.0,
-          ),
-          Row(
-            children: <Widget>[
-              Icon(
-                Icons.pin_drop,
-                color: Colors.grey[400],
+          ],
+        ),
+        padding: EdgeInsets.all(15.0),
+        margin: EdgeInsets.symmetric(horizontal: 9.0, vertical: 7.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            ClipRRect(
+              child: Image.asset("assets/imgs/lobster.jpg"),
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            SizedBox(
+              height: 9.0,
+            ),
+            Text(
+              "Australian Lobster stewed rice",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 19.0,
               ),
-              Text(
-                "3KM Until Arrival",
-                style: TextStyle(
+            ),
+            SizedBox(
+              height: 9.0,
+            ),
+            Row(
+              children: <Widget>[
+                Icon(
+                  Icons.pin_drop,
                   color: Colors.grey[400],
                 ),
-              ),
-              Spacer(),
-              Flexible(
-                flex: 3,
-                child: FittedBox(
-                  child: StarDisplay(
-                    value: 4,
+                Text(
+                  "3KM Until Arrival",
+                  style: TextStyle(
+                    color: Colors.grey[400],
                   ),
                 ),
-              )
-            ],
-          )
-        ],
+                Spacer(),
+                Flexible(
+                  flex: 3,
+                  child: FittedBox(
+                    child: StarDisplay(
+                      value: 4,
+                    ),
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -269,7 +266,7 @@ class SmallContainer extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () {},
+        onTap: () => Navigator.pushNamed(context, 'restaurant'),
         child: Container(
           height: 179,
           width: MediaQuery.of(context).size.width / 2.5,
@@ -338,14 +335,16 @@ class SmallContainer extends StatelessWidget {
 class MyCustomButton extends StatelessWidget {
   final bool active;
   final String title;
-  const MyCustomButton({Key key, this.active, this.title}) : super(key: key);
+  final onTap;
+  const MyCustomButton({Key key, this.active, this.title, this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () {},
+        onTap: onTap,
         child: Container(
           width: 115,
           alignment: Alignment.center,
@@ -373,6 +372,36 @@ class MyCustomButton extends StatelessWidget {
             style: TextStyle(color: active ? Colors.white : Colors.grey[500]),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class CategoriesList extends StatefulWidget {
+  @override
+  _CategoriesListState createState() => _CategoriesListState();
+}
+
+class _CategoriesListState extends State<CategoriesList> {
+  int _active = 0;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 55,
+      child: ListView.builder(
+        itemCount: buttonsTitle.length,
+        itemBuilder: (BuildContext context, int id) {
+          return MyCustomButton(
+            title: buttonsTitle[id],
+            active: id == _active ? true : false,
+            onTap: () {
+              setState(() {
+                _active = id;
+              });
+            },
+          );
+        },
+        scrollDirection: Axis.horizontal,
       ),
     );
   }

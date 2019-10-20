@@ -1,17 +1,13 @@
 # restaurant_booking
 
 Screenshots:
-https://www.behance.net/cybdom
 
-If you wish to help me you can donate any amount possible.
+I'd appreciate it if you could show your support by buying me some coffee. Thank you :)
 
-Bitcoin Address: 1DiFn7B9APaQJKfYAKqesnGM2eVM1MW6U
+https://www.buymeacoffee.com/bi3cp0Zk5
 
-Ethereum Address: 0xAdc43dadbE2b64DC9ba1c8766764F7cD4a2Fa915
-
-Paypal: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=THDYKD8QG27HN&source=url
-
-Patreon: https://www.patreon.com/cybdom
+<img src="screenshot1.png">
+<img src="screenshot2.png">
 
 ## Getting Started
 
