@@ -130,7 +130,7 @@ class Home extends StatelessWidget {
                       BoxShadow(
                           blurRadius: 5.0,
                           offset: Offset(0, 5),
-                          color: Colors.grey[100]),
+                          color: Colors.grey.shade100),
                     ],
                   ),
                   child: Row(
@@ -201,7 +201,7 @@ class LargeContainer extends StatelessWidget {
             BoxShadow(
               blurRadius: 5.0,
               offset: Offset(0, 3),
-              color: Colors.grey[300],
+              color: Colors.grey.shade300,
             ),
           ],
         ),
@@ -259,7 +259,8 @@ class LargeContainer extends StatelessWidget {
 
 class SmallContainer extends StatelessWidget {
   final String text;
-  const SmallContainer({Key key, this.text}) : super(key: key);
+
+  const SmallContainer({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -279,7 +280,7 @@ class SmallContainer extends StatelessWidget {
               BoxShadow(
                 blurRadius: 5.0,
                 offset: Offset(0, 3),
-                color: Colors.grey[300],
+                color: Colors.grey.shade300,
               ),
             ],
           ),
@@ -336,9 +337,9 @@ class MyCustomButton extends StatelessWidget {
   final bool active;
   final String title;
   final onTap;
-  const MyCustomButton({Key key, this.active, this.title, this.onTap})
-      : super(key: key);
 
+  const MyCustomButton(
+      {super.key, required this.active, required this.title, this.onTap});
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -349,7 +350,7 @@ class MyCustomButton extends StatelessWidget {
           width: 115,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            border: !active ? Border.all(color: Colors.grey[100]) : null,
+            border: !active ? Border.all(color: Colors.grey.shade100) : null,
             borderRadius: BorderRadius.circular(21.0),
             gradient: active
                 ? LinearGradient(colors: [Colors.yellow, Colors.orange])

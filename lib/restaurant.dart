@@ -24,7 +24,12 @@ class RestaurantPage extends StatelessWidget {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      RoundButton(icon: Icons.arrow_back_ios, onTap: (){Navigator.pop(context);},),
+                      RoundButton(
+                        icon: Icons.arrow_back_ios,
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                      ),
                       Spacer(),
                       RoundButton(icon: Icons.favorite_border),
                       SizedBox(width: 5.0),
@@ -60,8 +65,8 @@ class RestaurantPage extends StatelessWidget {
                     topRight: Radius.circular(35),
                   ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: ListView(
+                  // crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Row(
                       children: <Widget>[
@@ -205,7 +210,8 @@ class RestaurantPage extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontWeight: FontWeight.bold, fontSize: 21),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 21),
                             ),
                             Spacer(),
                             Icon(
@@ -230,7 +236,8 @@ class RestaurantPage extends StatelessWidget {
 class RoundButton extends StatelessWidget {
   final IconData icon;
   final onTap;
-  const RoundButton({Key key, this.icon, this.onTap}) : super(key: key);
+
+  const RoundButton({super.key, required this.icon, this.onTap});
   @override
   Widget build(BuildContext context) {
     return Container(
